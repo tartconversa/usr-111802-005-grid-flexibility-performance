@@ -25,6 +25,11 @@ class DecisionBook:
         self.connection.execute("INSERT INTO reports VALUES(?,?,?,?,?)", (report_id,created_at,title,encoded,digest))
         return self.get(report_id)
 
+    def list_all(self):
+        rows = self.connection.execute(
+            "SELECT * FROM reports ORDER BY created_at,report_id").fetchall()
+        return [dict(row) | {"body": json.loads(row["body"])} for row in rows]
+
     def get(self, report_id):
         row = self.connection.execute("SELECT * FROM reports WHERE report_id=?", (report_id,)).fetchone()
         return (dict(row) | {"body": json.loads(row["body"])}) if row else None
