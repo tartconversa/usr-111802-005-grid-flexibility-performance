@@ -1,0 +1,8 @@
+{
+  "name": "园区用电运营",
+  "event_kinds": [
+    "meter",
+    "production",
+    "response"
+  ]
+}
